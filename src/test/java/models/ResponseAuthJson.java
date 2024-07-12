@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResponseAuth {
+public class ResponseAuthJson {
     private String userId;
     private String username;
     private String password;

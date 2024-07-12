@@ -4,7 +4,7 @@ import org.junit.jupiter.api.*;
 
 public class BooksCartTests extends BaseTest {
     @Test
-    void RemoveBookFromCartTest() {
+    void removeBookFromCartTest() {
         // находим первую книгу
         var isbn = steps.getIsbnOfFirstBookFromStore();
         // добавить книгу в корзину через API

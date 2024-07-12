@@ -21,7 +21,8 @@ dependencies {
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.qameta.allure:allure-rest-assured:$allureVersion",
             "com.codeborne:selenide:6.19.1",
-            'org.assertj:assertj-core:3.26.0'
+            'org.assertj:assertj-core:3.26.0',
+            'com.github.javafaker:javafaker:1.0.2'
     )
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.1'
 }

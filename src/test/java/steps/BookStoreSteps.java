@@ -1,10 +1,8 @@
 package steps;
 
-import helpers.UserGeneration;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import models.PostBooksRequestObject;
-import models.ResponseAuth;
+import models.*;
 import org.openqa.selenium.Cookie;
 
 import static com.codeborne.selenide.Condition.text;
@@ -16,16 +14,16 @@ import static specs.RequestResponseSpecs.*;
 public class BookStoreSteps {
     public String userId;
     public String password;
+    private final RequestJson requestJson;
 
     public BookStoreSteps() {
-        userId = UserGeneration.generateUsername();
-        password = UserGeneration.generatePassword();
+        requestJson = new RequestJson();
     }
 
     @Step("Create user via API")
     public Response createUser() {
         return given(commonRequestSpecification)
-                .body("{ \"userName\": \"NewJohnDoe15\", \"password\": \"Password123!\" }")
+                .body(requestJson)
                 .when()
                 .post("/Account/v1/User")
                 .then()
@@ -35,15 +33,15 @@ public class BookStoreSteps {
     }
 
     @Step("Login via API")
-    public ResponseAuth login(String token) {
-        ResponseAuth response = given(commonRequestSpecification)
-                .body("{ \"userName\": \"NewJohnDoe15\", \"password\": \"Password123!\" }")
+    public ResponseAuthJson login(String token) {
+        ResponseAuthJson response = given(commonRequestSpecification)
+                .body(requestJson)
                 .when()
                 .post("/Account/v1/Login")
                 .then()
                 .statusCode(200)
                 .spec(responseSpec)
-                .extract().as(ResponseAuth.class);
+                .extract().as(ResponseAuthJson.class);
 
         System.out.println("*** response.getUserId() = " + response.getUserId());
         System.out.println("*** response.getToken() = " + response.getToken());
@@ -63,7 +61,7 @@ public class BookStoreSteps {
     @Step("Get generated Token via API")
     public String getToken() {
         return given(commonRequestSpecification)
-                .body("{ \"userName\": \"NewJohnDoe15\", \"password\": \"Password123!\" }")
+                .body(requestJson)
                 .when()
                 .post("/Account/v1/GenerateToken")
                 .then()
@@ -85,12 +83,12 @@ public class BookStoreSteps {
 
     @Step("Add book to cart via API")
     public void addBookToCart(String token, String userID, String isbn) {
-        PostBooksRequestObject postBooksRequestObject = new PostBooksRequestObject();
-        postBooksRequestObject.setUserId(userID);
-        postBooksRequestObject.addIsbns(isbn);
+        PostBooksRequestJson postBooksRequestJson = new PostBooksRequestJson();
+        postBooksRequestJson.setUserId(userID);
+        postBooksRequestJson.addIsbns(isbn);
 
         given(authorizedRequestSpec(token))
-                .body(postBooksRequestObject)
+                .body(postBooksRequestJson)
                 .when()
                 .post("/BookStore/v1/Books/")
                 .then()

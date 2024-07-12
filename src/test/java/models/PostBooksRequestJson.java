@@ -5,15 +5,15 @@ import lombok.Data;
 import java.util.ArrayList;
 
 @Data
-public class PostBooksRequestObject {
+public class PostBooksRequestJson {
     private String userId;
-    private ArrayList<models.collectionOfIsbns> collectionOfIsbns;
+    private ArrayList<CollectionOfIsbns> collectionOfIsbns;
 
     public void addIsbns(String isbn) {
-        models.collectionOfIsbns collectionOfIsbns = new collectionOfIsbns();
+        CollectionOfIsbns collectionOfIsbns = new CollectionOfIsbns();
         collectionOfIsbns.setIsbn(isbn);
 
-        ArrayList<models.collectionOfIsbns> isbnData = new ArrayList<>();
+        ArrayList<CollectionOfIsbns> isbnData = new ArrayList<>();
         isbnData.add(collectionOfIsbns);
         this.collectionOfIsbns = isbnData;
     }

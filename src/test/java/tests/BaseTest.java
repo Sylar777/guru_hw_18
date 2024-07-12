@@ -26,7 +26,7 @@ public class BaseTest {
     @BeforeEach
     void beforeEach() {
         // создать юзера через API
-        var response = steps.createUser();
+        steps.createUser();
         // токен
         token = steps.getToken();
         //залогиниться через API
