@@ -22,7 +22,6 @@ public class RequestResponseSpecs {
                 .log().headers()
                 .contentType(JSON)
                 .header("Authorization", "Bearer " + token);
-
     }
 
     public static ResponseSpecification responseSpec = new ResponseSpecBuilder()
