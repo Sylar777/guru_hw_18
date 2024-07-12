@@ -57,6 +57,6 @@ tasks.withType(Test) {
 
 task all_tests(type: Test) {
     useJUnitPlatform {
-        includeTags("Book Removing")
+        includeTags("Book_Removing")
     }
 }
