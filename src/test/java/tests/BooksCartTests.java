@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.*;
 
+@Tag("Book Removing")
 public class BooksCartTests extends BaseTest {
     @Test
     void removeBookFromCartTest() {
