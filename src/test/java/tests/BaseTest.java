@@ -5,11 +5,13 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.restassured.RestAssured;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import steps.BookStoreSteps;
 
 import java.util.Map;
 
+import static com.codeborne.selenide.Configuration.browserCapabilities;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class BaseTest {
@@ -27,13 +29,17 @@ public class BaseTest {
         Configuration.pageLoadStrategy = "eager";
         Configuration.timeout = 10000;
 
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("incognito");
+        browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
                 "enableVideo", true
         ));
 
-        Configuration.browserCapabilities = capabilities;
+        browserCapabilities = capabilities;
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
