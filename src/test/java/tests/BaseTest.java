@@ -45,7 +45,7 @@ public class BaseTest {
         // токен
         token = steps.getToken();
         //залогиниться через API
-        steps.login(token);
+        steps.login();
     }
 
     @AfterEach

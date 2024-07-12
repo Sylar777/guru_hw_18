@@ -1,7 +1,6 @@
 package steps;
 
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 import models.*;
 import org.openqa.selenium.Cookie;
 
@@ -13,7 +12,6 @@ import static specs.RequestResponseSpecs.*;
 
 public class BookStoreSteps {
     public String userId;
-    public String password;
     private final RequestJson requestJson;
 
     public BookStoreSteps() {
@@ -21,8 +19,8 @@ public class BookStoreSteps {
     }
 
     @Step("Create user via API")
-    public Response createUser() {
-        return given(commonRequestSpecification)
+    public void createUser() {
+        given(commonRequestSpecification)
                 .body(requestJson)
                 .when()
                 .post("/Account/v1/User")
@@ -33,7 +31,7 @@ public class BookStoreSteps {
     }
 
     @Step("Login via API")
-    public ResponseAuthJson login(String token) {
+    public void login() {
         ResponseAuthJson response = given(commonRequestSpecification)
                 .body(requestJson)
                 .when()
@@ -43,10 +41,6 @@ public class BookStoreSteps {
                 .spec(responseSpec)
                 .extract().as(ResponseAuthJson.class);
 
-        System.out.println("*** response.getUserId() = " + response.getUserId());
-        System.out.println("*** response.getToken() = " + response.getToken());
-        System.out.println("*** response.getExpires().toString() = " + response.getExpires().toString());
-
         userId = response.getUserId();
 
         open("/images/WB.svg");
@@ -55,7 +49,6 @@ public class BookStoreSteps {
         getWebDriver().manage().addCookie(new Cookie("token", response.getToken()));
         getWebDriver().manage().addCookie(new Cookie("expires", response.getExpires().toString()));
 
-        return response;
     }
 
     @Step("Get generated Token via API")
