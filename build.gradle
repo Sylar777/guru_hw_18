@@ -36,7 +36,7 @@ dependencies {
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.qameta.allure:allure-rest-assured:$allureVersion",
             "io.qameta.allure:allure-selenide:$allureVersion",
-            "com.codeborne:selenide:6.19.1",
+            "com.codeborne:selenide:7.3.3",
             'org.assertj:assertj-core:3.26.0',
             'com.github.javafaker:javafaker:1.0.2'
     )
