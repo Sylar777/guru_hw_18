@@ -47,17 +47,13 @@ public class BaseTest {
 
     @BeforeEach
     void beforeEach() {
-        // создать юзера через API
         steps.createUser();
-        // токен
         token = steps.getToken();
-        //залогиниться через API
         steps.login();
     }
 
     @AfterEach
     void afterEach() {
-        // удалить юзера через API
         steps.removeUser(token, steps.userId);
         closeWebDriver();
     }

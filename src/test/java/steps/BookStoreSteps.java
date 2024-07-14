@@ -3,6 +3,7 @@ package steps;
 import io.qameta.allure.Step;
 import models.*;
 import org.openqa.selenium.Cookie;
+import pages.CartPage;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
@@ -13,9 +14,11 @@ import static specs.RequestResponseSpecs.*;
 public class BookStoreSteps {
     public String userId;
     private final RequestJson requestJson;
+    CartPage cartPage;
 
     public BookStoreSteps() {
         requestJson = new RequestJson();
+        cartPage = new CartPage();
     }
 
     @Step("Create user via API")
@@ -92,14 +95,14 @@ public class BookStoreSteps {
     @Step
     public void openCartAndRemoveBookFromCartByButton() {
         open("/profile");
-        $("#delete-record-undefined").click();
-        $("#closeSmallModal-ok").click();
+        cartPage.removeButton.click();
+        cartPage.closeModalButton.click();
         switchTo().alert().accept();
     }
 
     @Step
     public void checkThatCartIsEmpty() {
-        $(".profile-wrapper").shouldHave(text("No rows found"));
+        cartPage.shelves.shouldHave(text("No rows found"));
     }
 
     @Step
